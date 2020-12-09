@@ -1,0 +1,66 @@
+specVersion: 0.0.2
+description: Linkswap is a decentralized protocol for automated token exchange on Ethereum.
+repository: https://github.com/yflink/linkswap-v1-subgraph
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: LinkswapFactory
+    network: mainnet
+    source:
+      address: "0x696708Db871B77355d6C2bE7290B27CF0Bb9B24b"
+      abi: LinkswapFactory
+      startBlock: 10000834
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappings/LinkswapFactory.ts
+      entities:
+        - PairCreated
+      abis:
+        - name: LinkswapFactory
+          file: ./abis/LinkswapFactory.json
+      eventHandlers:
+        - event: PairCreated(indexed address,indexed address,address,uint256)
+          handler: handlePairCreated
+templates:
+  - kind: ethereum/contract
+    name: LinkswapPair
+    network: mainnet
+    source:
+      abi: LinkswapPair
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappings/LinkswapPair.ts
+      entities:
+        - Approval
+        - Burn
+        - Lock
+        - Mint
+        - Swap
+        - Sync
+        - Transfer
+        - Unlock
+      abis:
+        - name: LinkswapPair
+          file: ./abis/LinkswapPair.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: Burn(indexed address,uint256,uint256,indexed address)
+          handler: handleBurn
+        - event: Lock(indexed address,uint256,uint256)
+          handler: handleLock
+        - event: Mint(indexed address,uint256,uint256)
+          handler: handleMint
+        - event: Swap(indexed address,uint256,uint256,uint256,uint256,indexed address)
+          handler: handleSwap
+        - event: Sync(uint112,uint112)
+          handler: handleSync
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Unlock(indexed address,uint256)
+          handler: handleUnlock
