@@ -22,7 +22,7 @@ Below are a few ways to show how to query the linkswap-subgraph for data. The qu
 
 #### LinkswapFactory
 
-Contains data across all of Linkswap V1. This entity tracks important things like total liquidity (in ETH and LINK, see below), all time volume, transaction count, number of pairs and more.
+Contains data across all of Linkswap V1. This entity tracks important things like total liquidity (in ETH/LINK and USD, see below), all time volume, transaction count, number of pairs and more.
 
 #### Token
 
@@ -50,8 +50,8 @@ This query fetches aggredated data from all Linkswap pairs and tokens, to give a
 {
   LinkswapFactories(first: 1) {
     pairCount
-    totalVolumeETH
-    totalLiquidityETH
+    totalVolumeUSD
+    totalLiquidityUSD
   }
 }
 ```
