@@ -21,7 +21,7 @@ import {
   Unlock
 } from "../../generated/templates/LinkswapPair/LinkswapPair"
 import { updatePairDayData, updateTokenDayData, updateLinkswapDayData, updatePairHourData } from './DayUpdates'
-import { getEthPriceInUSD, findEthPerToken, getTrackedVolumeUSD, getTrackedLiquidityUSD } from './Pricing'
+import { updateUsdPriceBundle, findEthPerToken, getTrackedVolumeUSD, getTrackedLiquidityUSD } from './Pricing'
 import {
   convertTokenToDecimal,
   ADDRESS_ZERO,
@@ -335,11 +335,7 @@ export function handleSync(event: Sync): void {
   pair.save()
 
   // update ETH price now that reserves could have changed
-  let bundle = Bundle.load('1')
-  bundle.ethPrice = getEthPriceInUSD()
-  bundle.save()
-  
-  log.debug('handleSync: ETH price updated', [bundle.ethPrice.toString()])
+  let bundle = updateUsdPriceBundle()
 
   token0.derivedETH = findEthPerToken(token0 as Token)
   token1.derivedETH = findEthPerToken(token1 as Token)

@@ -212,6 +212,8 @@ type Swap @entity {
 type Bundle @entity {
   id: ID!
   ethPrice: BigDecimal! # price of ETH usd
+  linkPrice: BigDecimal! # price of LINK usd
+  yflPrice: BigDecimal! # price of YFL usd
 }
 
 # Data accumulated and condensed into day stats for all of Linkswap

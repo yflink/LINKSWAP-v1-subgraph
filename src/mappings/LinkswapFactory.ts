@@ -28,7 +28,9 @@ export function handlePairCreated(event: PairCreated): void {
 
     // create new bundle
     let bundle = new Bundle('1')
+    bundle.linkPrice = ZERO_BD
     bundle.ethPrice = ZERO_BD
+    bundle.yflPrice = ZERO_BD
     bundle.save()
   }
   

@@ -9,65 +9,78 @@ const DAI_LINK_PAIR = '0x9bf2e78b2201c5bad3c85b1d6a8c3adec6207091' // created bl
 const USDT_LINK_PAIR = '0xf36c9fc3c2abe4132019444aff914fc8dc9785a9' // created block 11375833
 const BUSD_LINK_PAIR = '0x983c9a1bcf0eb980a232d1b17bffd6bbf68fe4ce' // created block 11389212
 const LINK_WETH_PAIR = '0x9f1d5621896c4d075adcd327b0deba48007093cb' // created block 11389439
+const LINK_YFL_PAIR = '0x189a730921550314934019d184ec05726881d481' // created block 11375782
 
-export function getEthPriceInUSD(): BigDecimal {
+export function updateUsdPriceBundle(): Bundle {
   
   // fetch link prices for each stablecoin
   let daiPair = Pair.load(DAI_LINK_PAIR) // dai is token1
   let usdcPair = Pair.load(USDC_LINK_PAIR) // usdc is token1
   let usdtPair = Pair.load(USDT_LINK_PAIR) // usdt is token1
   let busdPair = Pair.load(BUSD_LINK_PAIR) // busd is token0
+  
   let linkWETHPair = Pair.load(LINK_WETH_PAIR) // link is token0
-
+  let linkYFLPair = Pair.load(LINK_YFL_PAIR) // link is token1
+  
   if(daiPair == null) {
-    log.debug('getEthPriceInUSD: Dai Pair is null', [])
+    log.debug('updateUsdPriceBundle: Dai Pair is null', [])
   }
   
   if(usdcPair == null) {
-    log.debug('getEthPriceInUSD: USDC Pair is null', [])
+    log.debug('updateUsdPriceBundle: USDC Pair is null', [])
   }
   
   if(usdtPair == null) {
-    log.debug('getEthPriceInUSD: USDT Pair is null', [])
+    log.debug('updateUsdPriceBundle: USDT Pair is null', [])
   }
   
   if(busdPair == null) {
-    log.debug('getEthPriceInUSD: BUSD Pair is null', [])
+    log.debug('updateUsdPriceBundle: BUSD Pair is null', [])
   }
   
+  let linkUsdPrice = ZERO_BD
+  
   // all 4 have been created
-  if (daiPair !== null && usdcPair !== null && usdtPair !== null && busdPair !== null && linkWETHPair !== null) {
-    log.debug('getEthPriceInUSD: Getting price from DAI-LINK, USDC-LINK, USDT-LINK, BUSD-LINK', [])
+  if (daiPair !== null && usdcPair !== null && usdtPair !== null && busdPair !== null) {
+    log.debug('updateUsdPriceBundle: Getting price from DAI-LINK, USDC-LINK, USDT-LINK, BUSD-LINK', [])
     let totalLiquidityLink = daiPair.reserve0.plus(usdcPair.reserve0).plus(usdtPair.reserve0).plus(busdPair.reserve1)
     let daiWeight = daiPair.reserve0.div(totalLiquidityLink)
     let usdcWeight = usdcPair.reserve0.div(totalLiquidityLink)
     let usdtWeight = usdtPair.reserve0.div(totalLiquidityLink)
     let busdWeight = busdPair.reserve1.div(totalLiquidityLink)
     
-    return (daiPair.token1Price.times(daiWeight)
+    linkUsdPrice = daiPair.token1Price.times(daiWeight)
       .plus(usdcPair.token1Price.times(usdcWeight))
       .plus(usdtPair.token1Price.times(usdtWeight))
-      .plus(busdPair.token0Price.times(busdWeight)))
-      .times(linkWETHPair.token0Price)
+      .plus(busdPair.token0Price.times(busdWeight))
     
-  } else if (daiPair !== null && usdcPair !== null && linkWETHPair !== null) { // dai and USDC have been created
-    log.debug('getEthPriceInUSD: Getting price from DAI-LINK, USDC-LINK', [])
+  } else if (daiPair !== null && usdcPair !== null) { // dai and USDC have been created
+    log.debug('updateUsdPriceBundle: Getting price from DAI-LINK, USDC-LINK', [])
     let totalLiquidityLink = daiPair.reserve0.plus(usdcPair.reserve0)
     let daiWeight = daiPair.reserve0.div(totalLiquidityLink)
     let usdcWeight = usdcPair.reserve0.div(totalLiquidityLink)
     
-    return (daiPair.token1Price.times(daiWeight)
-      .plus(usdcPair.token1Price.times(usdcWeight)))
-      .times(linkWETHPair.token0Price)
+    linkUsdPrice = daiPair.token1Price.times(daiWeight)
+      .plus(usdcPair.token1Price.times(usdcWeight))
     
-  } else if (usdcPair !== null && linkWETHPair !== null) { // USDC is the only pair so far
-    log.debug('getEthPriceInUSD: Getting price from USDC-LINK', [])
-    return usdcPair.token1Price.times(linkWETHPair.token0Price)
-    
-  } else {
-    log.debug('getEthPriceInUSD: No pair found', [])
-    return ZERO_BD
+  } else if (usdcPair !== null) { // USDC is the only pair so far
+    log.debug('updateUsdPriceBundle: Getting price from USDC-LINK', [])
+    linkUsdPrice = usdcPair.token1Price
   }
+  
+  let bundle = Bundle.load('1')
+  bundle.linkPrice = linkUsdPrice
+  
+  if(linkWETHPair !== null) {
+    bundle.ethPrice = linkUsdPrice.times(linkWETHPair.token0Price)
+  }
+  
+  if(linkYFLPair !== null) {
+    bundle.yflPrice = linkUsdPrice.times(linkYFLPair.token1Price)
+  }
+  bundle.save()
+  
+  return bundle as Bundle
 }
 
 // token where amounts should contribute to tracked volume and liquidity
