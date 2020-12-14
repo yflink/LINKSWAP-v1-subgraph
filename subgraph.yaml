@@ -17,7 +17,8 @@ dataSources:
       language: wasm/assemblyscript
       file: ./src/mappings/LinkswapFactory.ts
       entities:
-        - PairCreated
+        - Pair
+        - Token
       abis:
         - name: LinkswapFactory
           file: ./abis/LinkswapFactory.json
@@ -42,14 +43,8 @@ templates:
       language: wasm/assemblyscript
       file: ./src/mappings/LinkswapPair.ts
       entities:
-        - Approval
-        - Burn
-        - Lock
-        - Mint
-        - Swap
-        - Sync
-        - Transfer
-        - Unlock
+        - Pair
+        - Token
       abis:
         - name: LinkswapPair
           file: ./abis/LinkswapPair.json
