@@ -86,31 +86,31 @@ export function updateUsdPriceBundle(): Bundle {
 // token where amounts should contribute to tracked volume and liquidity
 let WHITELIST: string[] = [
   
+  '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
+  '0x6b175474e89094c44da98b954eedeac495271d0f', // DAI
+  '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC
+  '0xdac17f958d2ee523a2206206994597c13d831ec7', // USDT
+  '0x4fabb145d64652a948d72533023f6e7a623c7c53', // BUSD
+  '0x514910771af9ca656af840dff83e8264ecf986ca', // LINK
+  '0x28cb7e841ee97947a86b06fa4090c8451f64c0be', // YFL
   '0x06f3c323f0238c72bf35011071f2b5b7f43a054c', // MASQ
   '0x0ff6ffcfda92c53f615a4a75d982f399c989366b', // LAYER
   '0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b', // DPI
   '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984', // UNI
   '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599', // WBTC
-  '0x28cb7e841ee97947a86b06fa4090c8451f64c0be', // YFL
-  '0x4fabb145d64652a948d72533023f6e7a623c7c53', // BUSD
-  '0x514910771af9ca656af840dff83e8264ecf986ca', // LINK
   '0x5dbcf33d8c2e976c6b560249878e6f1491bca25c', // yyDAI+yUSDC+yUSDT+yTUSD
   '0x63b4f3e3fa4e438698ce330e365e831f7ccd1ef4', // CFi
-  '0x6b175474e89094c44da98b954eedeac495271d0f', // DAI
   '0x6c3f90f043a72fa612cbac8115ee7e52bde6e490', // 3Crv
   '0x6d6506e6f438ede269877a0a720026559110b7d5', // BONK
   '0x79ba92dda26fce15e1e9af47d5cfdfd2a093e000', // SERGS
   '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9', // AAVE
   '0x83f873388cd14b83a9f47fabde3c9850b5c74548', // ZUT
   '0x9d47894f8becb68b9cf3428d256311affe8b068b', // $ROPE
-  '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC
   '0xaaaebe6fe48e54f431b0c390cfaf0b017d09d42d', // CEL
   '0xaac41ec512808d64625576eddd580e7ea40ef8b2', // GSWAP
   '0xb1dc9124c395c1e97773ab855d66e879f053a289', // YAX
   '0xb78b3320493a4efaa1028130c5ba26f0b6085ef8', // DRC
   '0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f', // SNX
-  '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
-  '0xdac17f958d2ee523a2206206994597c13d831ec7', // USDT
   '0xdec09af123a0d69b8f219198b01ceb36c1d16a57', // wHBAR
   '0xedfbd6c48c3ddff5612ade14b45bb19f916809ba', // RUGZ
   
