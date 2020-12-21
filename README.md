@@ -1,14 +1,14 @@
-# Linkswap V1 Subgraph
+# LINKSWAP V1 Subgraph
 
-[Linkswap](https://linkswap.app/) is a decentralized protocol for automated token exchange on Ethereum.
+[LINKSWAP](https://linkswap.app/) is a decentralized protocol for automated token exchange on Ethereum.
 
-This subgraph dynamically tracks any pair created by the Linkswap factory. It tracks of the current state of Linkswap contracts, and contains derived stats for things like historical data and USD prices.
+This subgraph dynamically tracks any pair created by the LINKSWAP factory. It tracks of the current state of LINKSWAP contracts, and contains derived stats for things like historical data and USD prices.
 
 - aggregated data across pairs and tokens,
 - data on individual pairs and tokens,
 - data on transactions
 - data on liquidity providers
-- historical data on Linkswap, pairs or tokens, aggregated by day
+- historical data on LINKSWAP, pairs or tokens, aggregated by day
 
 ## Running Locally
 
@@ -22,7 +22,7 @@ Below are a few ways to show how to query the linkswap-subgraph for data. The qu
 
 #### LinkswapFactory
 
-Contains data across all of Linkswap V1. This entity tracks important things like total liquidity (in ETH/LINK and USD, see below), all time volume, transaction count, number of pairs and more.
+Contains data across all of LINKSWAP V1. This entity tracks important things like total liquidity (in ETH/LINK and USD, see below), all time volume, transaction count, number of pairs and more.
 
 #### Token
 
@@ -34,7 +34,7 @@ Contains data on a specific pair.
 
 #### Transaction
 
-Every transaction on Linkswap is stored. Each transaction contains an array of mints, burns, and swaps that occured within it.
+Every transaction on LINKSWAP is stored. Each transaction contains an array of mints, burns, and swaps that occured within it.
 
 #### Mint, Burn, Swap
 
@@ -42,9 +42,9 @@ These contain specifc information about a transaction. Things like which pair tr
 
 ## Example Queries
 
-### Querying Aggregated Linkswap Data
+### Querying Aggregated LINKSWAP Data
 
-This query fetches aggredated data from all Linkswap pairs and tokens, to give a view into how much activity is happening within the whole protocol.
+This query fetches aggredated data from all LINKSWAP pairs and tokens, to give a view into how much activity is happening within the whole protocol.
 
 ```graphql
 {

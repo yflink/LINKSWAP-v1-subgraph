@@ -216,7 +216,7 @@ type Bundle @entity {
   yflPrice: BigDecimal! # price of YFL usd
 }
 
-# Data accumulated and condensed into day stats for all of Linkswap
+# Data accumulated and condensed into day stats for all of LINKSWAP
 type LinkswapDayData @entity {
   id: ID! # timestamp rounded to current day by dividing by 86400
   date: Int!
