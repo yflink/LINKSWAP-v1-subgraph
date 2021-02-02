@@ -214,6 +214,8 @@ type Bundle @entity {
   ethPrice: BigDecimal! # price of ETH usd
   linkPrice: BigDecimal! # price of LINK usd
   yflPrice: BigDecimal! # price of YFL usd
+  yflusdPrice: BigDecimal! # price of YFLUSD usd
+  syflPrice: BigDecimal! # price of sYFL usd
 }
 
 # Data accumulated and condensed into day stats for all of Linkswap

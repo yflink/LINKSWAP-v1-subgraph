@@ -31,6 +31,8 @@ export function handlePairCreated(event: PairCreated): void {
     bundle.linkPrice = ZERO_BD
     bundle.ethPrice = ZERO_BD
     bundle.yflPrice = ZERO_BD
+    bundle.yflusdPrice = ZERO_BD
+    bundle.syflPrice = ZERO_BD
     bundle.save()
   }
   

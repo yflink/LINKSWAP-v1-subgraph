@@ -10,6 +10,8 @@ const USDT_LINK_PAIR = '0xf36c9fc3c2abe4132019444aff914fc8dc9785a9' // created b
 const BUSD_LINK_PAIR = '0x983c9a1bcf0eb980a232d1b17bffd6bbf68fe4ce' // created block 11389212
 const LINK_WETH_PAIR = '0x9f1d5621896c4d075adcd327b0deba48007093cb' // created block 11389439
 const LINK_YFL_PAIR = '0x189a730921550314934019d184ec05726881d481' // created block 11375782
+const LINK_YFLUSD_PAIR = '0x6cd7817e6f3f52123df529e1edf5830240ce48c1' // created block 11740355
+const LINK_SYFL_PAIR = '0x74c89f297b1dc87f927d9432a4eeea697e6f89a5' // created block 11740359
 
 export function updateUsdPriceBundle(): Bundle {
   
@@ -21,6 +23,8 @@ export function updateUsdPriceBundle(): Bundle {
   
   let linkWETHPair = Pair.load(LINK_WETH_PAIR) // link is token0
   let linkYFLPair = Pair.load(LINK_YFL_PAIR) // link is token1
+  let linkYFLUSDPair = Pair.load(LINK_YFLUSD_PAIR) // link is token0
+  let linkSYFLPair = Pair.load(LINK_SYFL_PAIR) // link is token0
   
   if(daiPair == null) {
     log.debug('updateUsdPriceBundle: Dai Pair is null', [])
@@ -78,6 +82,15 @@ export function updateUsdPriceBundle(): Bundle {
   if(linkYFLPair !== null) {
     bundle.yflPrice = linkUsdPrice.times(linkYFLPair.token1Price)
   }
+  
+  if(linkYFLUSDPair !== null) {
+    bundle.yflusdPrice = linkUsdPrice.times(linkYFLUSDPair.token0Price)
+  }
+  
+  if(linkYFLUSDPair !== null) {
+    bundle.syflPrice = linkUsdPrice.times(linkSYFLPair.token0Price)
+  }
+  
   bundle.save()
   
   return bundle as Bundle
@@ -93,6 +106,8 @@ let WHITELIST: string[] = [
   '0x4fabb145d64652a948d72533023f6e7a623c7c53', // BUSD
   '0x514910771af9ca656af840dff83e8264ecf986ca', // LINK
   '0x28cb7e841ee97947a86b06fa4090c8451f64c0be', // YFL
+  '0x7b760d06e401f85545f3b50c44bf5b05308b7b62', // YFLUSD
+  '0x8282df223ac402d04b2097d16f758af4f70e7db0', // sYFL
   '0x06f3c323f0238c72bf35011071f2b5b7f43a054c', // MASQ
   '0x0ff6ffcfda92c53f615a4a75d982f399c989366b', // LAYER
   '0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b', // DPI
