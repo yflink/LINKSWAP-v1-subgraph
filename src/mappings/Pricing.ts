@@ -14,36 +14,36 @@ const LINK_YFLUSD_PAIR = '0x6cd7817e6f3f52123df529e1edf5830240ce48c1' // created
 const LINK_SYFL_PAIR = '0x74c89f297b1dc87f927d9432a4eeea697e6f89a5' // created block 11740359
 
 export function updateUsdPriceBundle(): Bundle {
-  
+
   // fetch link prices for each stablecoin
   let daiPair = Pair.load(DAI_LINK_PAIR) // dai is token1
   let usdcPair = Pair.load(USDC_LINK_PAIR) // usdc is token1
   let usdtPair = Pair.load(USDT_LINK_PAIR) // usdt is token1
   let busdPair = Pair.load(BUSD_LINK_PAIR) // busd is token0
-  
+
   let linkWETHPair = Pair.load(LINK_WETH_PAIR) // link is token0
   let linkYFLPair = Pair.load(LINK_YFL_PAIR) // link is token1
   let linkYFLUSDPair = Pair.load(LINK_YFLUSD_PAIR) // link is token0
   let linkSYFLPair = Pair.load(LINK_SYFL_PAIR) // link is token0
-  
+
   if(daiPair == null) {
     log.debug('updateUsdPriceBundle: Dai Pair is null', [])
   }
-  
+
   if(usdcPair == null) {
     log.debug('updateUsdPriceBundle: USDC Pair is null', [])
   }
-  
+
   if(usdtPair == null) {
     log.debug('updateUsdPriceBundle: USDT Pair is null', [])
   }
-  
+
   if(busdPair == null) {
     log.debug('updateUsdPriceBundle: BUSD Pair is null', [])
   }
-  
+
   let linkUsdPrice = ZERO_BD
-  
+
   // all 4 have been created
   if (daiPair !== null && usdcPair !== null && usdtPair !== null && busdPair !== null) {
     log.debug('updateUsdPriceBundle: Getting price from DAI-LINK, USDC-LINK, USDT-LINK, BUSD-LINK', [])
@@ -52,53 +52,53 @@ export function updateUsdPriceBundle(): Bundle {
     let usdcWeight = usdcPair.reserve0.div(totalLiquidityLink)
     let usdtWeight = usdtPair.reserve0.div(totalLiquidityLink)
     let busdWeight = busdPair.reserve1.div(totalLiquidityLink)
-    
+
     linkUsdPrice = daiPair.token1Price.times(daiWeight)
       .plus(usdcPair.token1Price.times(usdcWeight))
       .plus(usdtPair.token1Price.times(usdtWeight))
       .plus(busdPair.token0Price.times(busdWeight))
-    
+
   } else if (daiPair !== null && usdcPair !== null) { // dai and USDC have been created
     log.debug('updateUsdPriceBundle: Getting price from DAI-LINK, USDC-LINK', [])
     let totalLiquidityLink = daiPair.reserve0.plus(usdcPair.reserve0)
     let daiWeight = daiPair.reserve0.div(totalLiquidityLink)
     let usdcWeight = usdcPair.reserve0.div(totalLiquidityLink)
-    
+
     linkUsdPrice = daiPair.token1Price.times(daiWeight)
       .plus(usdcPair.token1Price.times(usdcWeight))
-    
+
   } else if (usdcPair !== null) { // USDC is the only pair so far
     log.debug('updateUsdPriceBundle: Getting price from USDC-LINK', [])
     linkUsdPrice = usdcPair.token1Price
   }
-  
+
   let bundle = Bundle.load('1')
   bundle.linkPrice = linkUsdPrice
-  
+
   if(linkWETHPair !== null) {
     bundle.ethPrice = linkUsdPrice.times(linkWETHPair.token0Price)
   }
-  
+
   if(linkYFLPair !== null) {
     bundle.yflPrice = linkUsdPrice.times(linkYFLPair.token1Price)
   }
-  
+
   if(linkYFLUSDPair !== null) {
     bundle.yflusdPrice = linkUsdPrice.times(linkYFLUSDPair.token0Price)
   }
-  
+
   if(linkYFLUSDPair !== null) {
     bundle.syflPrice = linkUsdPrice.times(linkSYFLPair.token0Price)
   }
-  
+
   bundle.save()
-  
+
   return bundle as Bundle
 }
 
 // token where amounts should contribute to tracked volume and liquidity
 let WHITELIST: string[] = [
-  
+
   '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
   '0x6b175474e89094c44da98b954eedeac495271d0f', // DAI
   '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC
@@ -128,7 +128,11 @@ let WHITELIST: string[] = [
   '0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f', // SNX
   '0xdec09af123a0d69b8f219198b01ceb36c1d16a57', // wHBAR
   '0xedfbd6c48c3ddff5612ade14b45bb19f916809ba', // RUGZ
-  
+  '0xdfe66b14d37c77f4e9b180ceb433d1b164f0281d', // stETH
+  '0x67b66c99d3eb37fa76aa3ed1ff33e8e39f0b9c7a', // ibETH
+  '0x8888801af4d980682e47f1a9036e589479e835c5', // MPH
+  '0x3832d2f059e55934220881f831be501d180671a7', // renDOGE
+
 ]
 
 
