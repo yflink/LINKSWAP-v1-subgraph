@@ -98,7 +98,6 @@ export function updateUsdPriceBundle(): Bundle {
 
 // token where amounts should contribute to tracked volume and liquidity
 let WHITELIST: string[] = [
-
   '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
   '0x6b175474e89094c44da98b954eedeac495271d0f', // DAI
   '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC
@@ -132,7 +131,15 @@ let WHITELIST: string[] = [
   '0x67b66c99d3eb37fa76aa3ed1ff33e8e39f0b9c7a', // ibETH
   '0x8888801af4d980682e47f1a9036e589479e835c5', // MPH
   '0x3832d2f059e55934220881f831be501d180671a7', // renDOGE
-
+  '0xe3cb486f3f5c639e98ccbaf57d95369375687f80', // renDGB
+  '0x52d87F22192131636F93c5AB18d0127Ea52CB641', // renLUNA
+  '0xeb4c2781e4eba804ce9a9803c67d0893436bb27d', // renBTC
+  '0x459086f2376525bdceba5bdda135e4e9d3fef5bf', // renBCH
+  '0x1c5db575e2ff833e46a2e9864c22f4b22e0b37c2', // renZEC
+  '0xD5147bc8e386d91Cc5DBE72099DAC6C9b99276F5', // renFIL
+  '0x0C49066C0808Ee8c673553B7cbd99BCC9ABf113d', // vUSDC
+  '0x103cc17C2B1586e5Cd9BaD308690bCd0BBe54D5e', // vETH
+  '0x4B2e76EbBc9f2923d83F5FBDe695D8733db1a17B', // vBTC
 ]
 
 
